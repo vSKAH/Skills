@@ -18,8 +18,7 @@ import org.lwjgl.input.Keyboard;
 
 public class ClientProxy extends CommonProxy {
 
-    private static final KeyBinding LEVELS_KEYBIND = new KeyBinding("Ouvrir le menu des niveaux", Keyboard.KEY_P, "key.categories.gameplay");
-    public static final ResourceLocation LEVEL_UP_OVERLAY = new ResourceLocation(CapacityMod.MODID, "textures/gui/level_up_banner.png");
+    private static final KeyBinding LEVELS_KEYBIND = new KeyBinding("Ouvrir le menu des niveaux", Keyboard.KEY_Y, "key.categories.gameplay");
 
     @Override
     public void clientSide(Side side) {

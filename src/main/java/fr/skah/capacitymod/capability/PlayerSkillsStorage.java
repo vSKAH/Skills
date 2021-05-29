@@ -48,7 +48,6 @@ public class PlayerSkillsStorage implements Capability.IStorage<IPlayerSkills> {
             instance.setIntelligenceLevel(nbt.getInteger("intelligenceLevel"));
             instance.setLuckLevel(nbt.getInteger("luckLevel"));
             instance.setExperience(nbt.getInteger("airLevel"));
-
         }
     }
 

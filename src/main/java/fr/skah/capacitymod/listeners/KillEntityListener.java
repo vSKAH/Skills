@@ -72,16 +72,23 @@ public class KillEntityListener {
                     break;
             }
             IPlayerSkills playerSkills = player.getCapability(PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY, null);
-            updatePlayerExperience(player, playerSkills, playerSkills.getExperience() + addedExperience + (playerSkills.getSageLevel() * 4) + (playerSkills.getGlobalLevel() * 2 - 2));
+            int experienceGain = addedExperience + (playerSkills.getSageLevel() * 4) + (playerSkills.getGlobalLevel() * 2 - 2);
+            updatePlayerExperience(player, playerSkills, playerSkills.getExperience() + experienceGain);
+            if (!player.world.isRemote) {
+                OverlayListeners.EXP_UP = 1200;
+                OverlayListeners.EXP = experienceGain;
+            }
         }
     }
 
     @SubscribeEvent
     public void onDrop(LivingDropsEvent event) {
-        if (!(event.getSource().getTrueSource() instanceof EntityPlayer) || event.getEntity() instanceof EntityPlayer) return;
+        if (!(event.getSource().getTrueSource() instanceof EntityPlayer) || event.getEntity() instanceof EntityPlayer)
+            return;
 
         EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
-        if(EnchantmentHelper.getEnchantments(player.getHeldItem(EnumHand.MAIN_HAND)).containsKey(Enchantment.getEnchantmentByID(21))) return;
+        if (EnchantmentHelper.getEnchantments(player.getHeldItem(EnumHand.MAIN_HAND)).containsKey(Enchantment.getEnchantmentByID(21)))
+            return;
 
         IPlayerSkills playerSkills = player.getCapability(PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY, null);
         event.getDrops().forEach(item -> {
@@ -94,10 +101,10 @@ public class KillEntityListener {
 
     private void updatePlayerExperience(EntityPlayer player, IPlayerSkills playerSkills, int experience) {
         playerSkills.setExperience(experience);
-        if (playerSkills.getExperience() >= Level.levelToExp(playerSkills.getGlobalLevel() + 1)) {
+        if (playerSkills.getExperience() >= Level.levelToExp(playerSkills.getGlobalLevel())) {
             playerSkills.setGlobalLevel(playerSkills.getGlobalLevel() + 1);
             playerSkills.setExperience(0);
-            playerSkills.setPoints(playerSkills.getPoints() + 1);
+            playerSkills.setPoints(playerSkills.getPoints());
             CapacityMod.NETWORK_WRAPPER.sendTo(new LevelUpPacket(playerSkills.getGlobalLevel()), (EntityPlayerMP) player);
         }
     }

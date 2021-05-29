@@ -6,10 +6,11 @@ package fr.skah.capacitymod.listeners;
  *  * @Author Jimmy
  */
 
-import fr.skah.capacitymod.proxy.ClientProxy;
+import fr.skah.capacitymod.CapacityMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -19,12 +20,18 @@ import java.awt.*;
 
 public class OverlayListeners {
 
-    public static float TIMER = 0;
-    public static int LEVEL = 0;
+    public static float LEVEL_UP = 0;
+    public static int PLAYER_LEVEL = 0;
+
+    public static float EXP_UP = 0;
+    public static int EXP = 0;
+
+    public static final ResourceLocation LEVEL_UP_OVERLAY = new ResourceLocation(CapacityMod.MODID, "textures/gui/level_up_banner.png");
+
 
     @SubscribeEvent
     public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
-        if (TIMER > 0 && event.getType().equals(RenderGameOverlayEvent.ElementType.ALL)) {
+        if (LEVEL_UP > 0 || EXP_UP > 0) {
             Minecraft minecraft = FMLClientHandler.instance().getClient();
             if (minecraft.currentScreen == null) {
                 ScaledResolution scaledresolution = event.getResolution();
@@ -37,16 +44,22 @@ public class OverlayListeners {
                 int x = scaledresolution.getScaledWidth() / 2 - dividedSizeX;
                 int y = scaledresolution.getScaledHeight() / 20;
 
-                GL11.glColor4f(1, 1, 1, 1);
-                GL11.glEnable(GL11.GL_BLEND);
-                GL11.glBlendFunc(770, 771);
-                minecraft.getTextureManager().bindTexture(ClientProxy.LEVEL_UP_OVERLAY);
-                Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, sizeX, sizeY, sizeX, sizeY);
-
-                String text = "Bravo, vous êtes passez Niveau " + LEVEL;
-
-                minecraft.fontRenderer.drawString(text, (scaledresolution.getScaledWidth() / 2 - minecraft.fontRenderer.getStringWidth(text) / 2), y + 70 / scaledresolution.getScaleFactor(), Color.GRAY.getRGB(), true);
-                TIMER = TIMER - event.getPartialTicks();
+                if (LEVEL_UP > 0) {
+                    GL11.glColor4f(1, 1, 1, 1);
+                    GL11.glEnable(GL11.GL_BLEND);
+                    GL11.glBlendFunc(770, 771);
+                    minecraft.getTextureManager().bindTexture(LEVEL_UP_OVERLAY);
+                    Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, sizeX, sizeY, sizeX, sizeY);
+                    String text = "Bravo, vous êtes passez Niveau " + PLAYER_LEVEL;
+                    minecraft.fontRenderer.drawString(text, (scaledresolution.getScaledWidth() / 2 - minecraft.fontRenderer.getStringWidth(text) / 2), y + 70 / scaledresolution.getScaleFactor(), Color.GRAY.getRGB(), true);
+                    LEVEL_UP = LEVEL_UP - event.getPartialTicks();
+                    return;
+                }
+                if (EXP_UP > 0) {
+                    String text = "+ " + EXP + " Exp";
+                    minecraft.fontRenderer.drawString(text, scaledresolution.getScaledWidth() - minecraft.fontRenderer.getStringWidth(text) - 1 , y / scaledresolution.getScaleFactor(), Color.GRAY.getRGB(), true);
+                    EXP_UP = EXP_UP - event.getPartialTicks();
+                }
             }
         }
     }

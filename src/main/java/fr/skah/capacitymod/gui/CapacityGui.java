@@ -36,19 +36,19 @@ public class CapacityGui extends BaseGui {
     private IPlayerSkills playerSkills;
 
     public CapacityGui() {
-        super(200, 380, new ResourceLocation(CapacityMod.MODID, "textures/gui/background.png"));
+        super(150, 300, new ResourceLocation(CapacityMod.MODID, "textures/gui/background.png"));
     }
 
     @Override
     public void initGui() {
         super.initGui();
         playerSkills = mc.player.getCapability(PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY, null);
-        buttonList.add(new ImageButton(150, getX() - 37, getY() - getHeightSize() + 147, 15, 15, "", ADD_BUTON, ADD_HOVER_BUTON));
-        buttonList.add(new ImageButton(151, getX() - 37, getY() - getHeightSize() + 180, 15, 15, "", ADD_BUTON, ADD_HOVER_BUTON));
-        buttonList.add(new ImageButton(152, getX() - 37, getY() - getHeightSize() + 212, 15, 15, "", ADD_BUTON, ADD_HOVER_BUTON));
-        buttonList.add(new ImageButton(153, getX() - 37, getY() - getHeightSize() + 246, 15, 15, "", ADD_BUTON, ADD_HOVER_BUTON));
-        buttonList.add(new ImageButton(154, getX() - 37, getY() - getHeightSize() + 279, 15, 15, "", ADD_BUTON, ADD_HOVER_BUTON));
-        buttonList.add(new ImageButton(155, getX() - 37, getY() - getHeightSize() + 311, 15, 15, "", ADD_BUTON, ADD_HOVER_BUTON));
+        buttonList.add(new ImageButton(150, getX() - 27, getY() - getHeightSize() + 118, 10, 10, "", ADD_BUTON, ADD_HOVER_BUTON));
+        buttonList.add(new ImageButton(151, getX() - 27, getY() - getHeightSize() + 144, 10, 10, "", ADD_BUTON, ADD_HOVER_BUTON));
+        buttonList.add(new ImageButton(152, getX() - 27, getY() - getHeightSize() + 169, 10, 10, "", ADD_BUTON, ADD_HOVER_BUTON));
+        buttonList.add(new ImageButton(153, getX() - 27, getY() - getHeightSize() + 195, 10, 10, "", ADD_BUTON, ADD_HOVER_BUTON));
+        buttonList.add(new ImageButton(154, getX() - 27, getY() - getHeightSize() + 221, 10, 10, "", ADD_BUTON, ADD_HOVER_BUTON));
+        buttonList.add(new ImageButton(155, getX() - 27, getY() - getHeightSize() + 246, 10, 10, "", ADD_BUTON, ADD_HOVER_BUTON));
     }
 
     @Override
@@ -92,20 +92,20 @@ public class CapacityGui extends BaseGui {
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
-        drawEntity((getX() - getWidthSize()) + 58, getY() - getHeightSize() + 88, 27, (getX() / 2 + 160) - mouseX, (getY() / 2 - 100) - mouseY, mc.player);
+        drawEntity((getX() - getWidthSize()) + 43, getY() - getHeightSize() + 70, 22, (getX() / 2 + 160) - mouseX, (getY() / 2 - 100) - mouseY, mc.player);
         drawProgressBar(playerSkills.getExperience(), Level.levelToExp(playerSkills.getGlobalLevel()));
 
-        fontRenderer.drawString(mc.player.getName(), getX() - 78, getY() - getHeightSize() + 50, Color.DARK_GRAY.getRGB());
-        fontRenderer.drawString(String.valueOf(playerSkills.getGlobalLevel()), getX() - 36, getY() - getHeightSize() + 68, Color.GRAY.getRGB());
+        fontRenderer.drawString(mc.player.getName(), getX() - 64, getY() - getHeightSize() + 38, Color.DARK_GRAY.getRGB());
+        fontRenderer.drawString(String.valueOf(playerSkills.getGlobalLevel()), getX() - 28, getY() - getHeightSize() + 53, Color.GRAY.getRGB());
 
-        fontRenderer.drawString(String.valueOf(playerSkills.getVitalityLevel()), getX() - 47, getY() - getHeightSize() + 152, Color.GRAY.getRGB());
-        fontRenderer.drawString(String.valueOf(playerSkills.getSageLevel()), getX() - 47, getY() - getHeightSize() + 185, Color.GRAY.getRGB());
-        fontRenderer.drawString(String.valueOf(playerSkills.getStrengthLevel()), getX() - 47, getY() - getHeightSize() + 216, Color.GRAY.getRGB());
-        fontRenderer.drawString(String.valueOf(playerSkills.getIntelligenceLevel()), getX() - 47, getY() - getHeightSize() + 250, Color.GRAY.getRGB());
-        fontRenderer.drawString(String.valueOf(playerSkills.getLuckLevel()), getX() - 47, getY() - getHeightSize() + 283, Color.GRAY.getRGB());
-        fontRenderer.drawString(String.valueOf(playerSkills.getAirLevel()), getX() - 47, getY() - getHeightSize() + 315, Color.GRAY.getRGB());
+        fontRenderer.drawString(String.valueOf(playerSkills.getVitalityLevel()), getX() - 38, getY() - getHeightSize() + 119, Color.GRAY.getRGB());
+        fontRenderer.drawString(String.valueOf(playerSkills.getSageLevel()), getX() - 38, getY() - getHeightSize() + 145, Color.GRAY.getRGB());
+        fontRenderer.drawString(String.valueOf(playerSkills.getStrengthLevel()), getX() - 39, getY() - getHeightSize() + 170, Color.GRAY.getRGB());
+        fontRenderer.drawString(String.valueOf(playerSkills.getIntelligenceLevel()), getX() - 38, getY() - getHeightSize() + 197, Color.GRAY.getRGB());
+        fontRenderer.drawString(String.valueOf(playerSkills.getLuckLevel()), getX() - 38, getY() - getHeightSize() + 223, Color.GRAY.getRGB());
+        fontRenderer.drawString(String.valueOf(playerSkills.getAirLevel()), getX() - 38, getY() - getHeightSize() + 248, Color.GRAY.getRGB());
 
-        fontRenderer.drawString(String.valueOf(playerSkills.getPoints()), (getX() - getWidthSize() + 97) - String.valueOf(playerSkills.getPoints()).length() * 2, getY() - 20, Color.DARK_GRAY.getRGB());
+        fontRenderer.drawString(String.valueOf(playerSkills.getPoints()), (getX() - getWidthSize() + 75) - String.valueOf(playerSkills.getPoints()).length() * 2, getY() - 18, Color.DARK_GRAY.getRGB());
     }
 
 
@@ -150,15 +150,17 @@ public class CapacityGui extends BaseGui {
     }
 
     public void drawProgressBar(int exp, int expNeed) {
-        int x = getX() - 180;
-        int y = getY() - getHeightSize() + 108;
-        int barSize = 124;
+        int x = getX() - 136;
+        int y = getY() - getHeightSize() + 84;
+
+        int barSize = 125;
         int coloredCharacter = (int) (barSize * (100 * exp / expNeed) / 100F);
 
         mc.getTextureManager().bindTexture(PROGRESS_BAR);
-        drawScaledCustomSizeModalRect(x, y, 0, 0, barSize, barSize, 163, 10, barSize, barSize);
+        drawScaledCustomSizeModalRect(x, y, 0, 0, barSize, barSize, barSize, 10, barSize, barSize);
         mc.getTextureManager().bindTexture(PROGRESS_BAR_FILLED);
-        drawScaledCustomSizeModalRect(x + 1, y + 1, 0, 0, 30, 5, coloredCharacter, 8, 10, 10);
+        drawScaledCustomSizeModalRect(x + 1, y + 1, 0, 0, barSize, 5, coloredCharacter, 8, 10, 10);
+        fontRenderer.drawString((exp + " / " + expNeed), x + 63, y - 10, Color.DARK_GRAY.getRGB());
     }
 
 

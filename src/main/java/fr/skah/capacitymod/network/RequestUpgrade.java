@@ -66,11 +66,11 @@ public class RequestUpgrade implements IMessage {
 
             if (playerSkills.getPoints() >= pointNeeded) {
                 playerSkills.setPoints(playerSkills.getPoints() - 1);
-                System.out.println("a");
                 if (skill == Skills.VITALITY) {
                     IAttributeInstance instance = entityPlayer.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
                     instance.applyModifier(new AttributeModifier(UUID.randomUUID(), "Health Modifier", 0.1F, 2).setSaved(true));
                     playerSkills.setVitalityLevel(playerSkills.getVitalityLevel() + 1);
+                    playerSkills.setPoints(playerSkills.getPoints() -2);
                     return null;
                 }
 
@@ -83,6 +83,7 @@ public class RequestUpgrade implements IMessage {
                     IAttributeInstance instance = entityPlayer.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
                     instance.applyModifier(new AttributeModifier(UUID.randomUUID(), "Streght Modifier", 0.2F, 2).setSaved(true));
                     playerSkills.setStrengthLevel(playerSkills.getStrengthLevel() + 1);
+                    playerSkills.setPoints(playerSkills.getPoints() - 2);
                     return null;
                 }
 

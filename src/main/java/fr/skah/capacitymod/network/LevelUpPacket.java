@@ -37,8 +37,8 @@ public class LevelUpPacket implements IMessage {
 
         @Override
         public IMessage onMessage(LevelUpPacket message, MessageContext ctx) {
-            OverlayListeners.TIMER = 2800;
-            OverlayListeners.LEVEL = message.globalLevel;
+            OverlayListeners.LEVEL_UP = 1000;
+            OverlayListeners.PLAYER_LEVEL = message.globalLevel;
             return null;
         }
     }
