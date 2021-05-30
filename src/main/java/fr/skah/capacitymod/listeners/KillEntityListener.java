@@ -104,7 +104,7 @@ public class KillEntityListener {
         if (playerSkills.getExperience() >= Level.levelToExp(playerSkills.getGlobalLevel())) {
             playerSkills.setGlobalLevel(playerSkills.getGlobalLevel() + 1);
             playerSkills.setExperience(0);
-            playerSkills.setPoints(playerSkills.getPoints());
+            playerSkills.setPoints(playerSkills.getPoints() + 1);
             CapacityMod.NETWORK_WRAPPER.sendTo(new LevelUpPacket(playerSkills.getGlobalLevel()), (EntityPlayerMP) player);
         }
     }

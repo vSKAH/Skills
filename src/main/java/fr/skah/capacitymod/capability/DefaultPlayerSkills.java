@@ -6,9 +6,7 @@ package fr.skah.capacitymod.capability;
  *  * @Author Jimmy
  */
 
-import fr.skah.capacitymod.CapacityMod;
-import fr.skah.capacitymod.network.SynchroniseSkillsPacket;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class DefaultPlayerSkills implements IPlayerSkills {
 
@@ -25,7 +23,7 @@ public class DefaultPlayerSkills implements IPlayerSkills {
 
 
     public DefaultPlayerSkills() {
-        this.experience = 0;
+        this.experience = 1;
         this.globalLevel = 1;
         this.points = 0;
         this.vitalityLevel = 0;
@@ -127,8 +125,15 @@ public class DefaultPlayerSkills implements IPlayerSkills {
         this.airLevel = level;
     }
 
-    public void updateDataClientSide(EntityPlayerMP entityPlayer) {
-        CapacityMod.NETWORK_WRAPPER.sendTo(new SynchroniseSkillsPacket(), entityPlayer);
+    @Override
+    public NBTTagCompound saveNBT()
+    {
+        return (NBTTagCompound) PlayerSkillsStorage.storage.writeNBT(PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY, this, null);
     }
 
+    @Override
+    public void loadNBT(NBTTagCompound compound)
+    {
+        PlayerSkillsStorage.storage.readNBT(PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY, this, null, compound);
+    }
 }

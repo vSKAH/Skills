@@ -33,7 +33,7 @@ public class OverlayListeners {
     public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
         if (LEVEL_UP > 0 || EXP_UP > 0) {
             Minecraft minecraft = FMLClientHandler.instance().getClient();
-            if (minecraft.currentScreen == null) {
+            if (minecraft.currentScreen == null && event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
                 ScaledResolution scaledresolution = event.getResolution();
 
                 int sizeX = 378 / scaledresolution.getScaleFactor();
@@ -43,11 +43,11 @@ public class OverlayListeners {
 
                 int x = scaledresolution.getScaledWidth() / 2 - dividedSizeX;
                 int y = scaledresolution.getScaledHeight() / 20;
+                GL11.glColor4f(1, 1, 1, 1);
+                GL11.glEnable(GL11.GL_BLEND);
+                GL11.glBlendFunc(770, 771);
 
                 if (LEVEL_UP > 0) {
-                    GL11.glColor4f(1, 1, 1, 1);
-                    GL11.glEnable(GL11.GL_BLEND);
-                    GL11.glBlendFunc(770, 771);
                     minecraft.getTextureManager().bindTexture(LEVEL_UP_OVERLAY);
                     Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, sizeX, sizeY, sizeX, sizeY);
                     String text = "Bravo, vous êtes passez Niveau " + PLAYER_LEVEL;
@@ -56,8 +56,8 @@ public class OverlayListeners {
                     return;
                 }
                 if (EXP_UP > 0) {
-                    String text = "+ " + EXP + " Exp";
-                    minecraft.fontRenderer.drawString(text, scaledresolution.getScaledWidth() - minecraft.fontRenderer.getStringWidth(text) - 1 , y / scaledresolution.getScaleFactor(), Color.GRAY.getRGB(), true);
+                    String text = "Vous avez gagné +" + EXP + "XP";
+                    minecraft.fontRenderer.drawString(text, scaledresolution.getScaledWidth() - minecraft.fontRenderer.getStringWidth(text) - 1, y / scaledresolution.getScaleFactor(), Color.GRAY.getRGB(), true);
                     EXP_UP = EXP_UP - event.getPartialTicks();
                 }
             }

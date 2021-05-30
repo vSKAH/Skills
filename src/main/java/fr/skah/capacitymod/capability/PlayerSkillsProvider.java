@@ -6,18 +6,23 @@ package fr.skah.capacitymod.capability;
  *  * @Author Jimmy
  */
 
-import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 
-public class PlayerSkillsProvider implements ICapabilitySerializable<NBTBase> {
+public class PlayerSkillsProvider implements ICapabilitySerializable<NBTTagCompound> {
 
     protected IPlayerSkills playerSkills;
 
     public PlayerSkillsProvider() {
         this.playerSkills = new DefaultPlayerSkills();
+    }
+
+    public PlayerSkillsProvider(IPlayerSkills capability)
+    {
+        this.playerSkills = capability;
     }
 
     @Override
@@ -32,12 +37,15 @@ public class PlayerSkillsProvider implements ICapabilitySerializable<NBTBase> {
     }
 
     @Override
-    public NBTBase serializeNBT() {
-        return PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY.writeNBT(this.playerSkills, null);
+    public NBTTagCompound serializeNBT()
+    {
+        return this.playerSkills.saveNBT();
     }
 
     @Override
-    public void deserializeNBT(NBTBase nbt) {
-        PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY.readNBT(this.playerSkills, null, nbt);
+    public void deserializeNBT(NBTTagCompound nbt)
+    {
+        this.playerSkills.loadNBT(nbt);
     }
+
 }

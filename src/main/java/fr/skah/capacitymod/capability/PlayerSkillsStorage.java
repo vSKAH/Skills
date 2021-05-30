@@ -16,6 +16,7 @@ public class PlayerSkillsStorage implements Capability.IStorage<IPlayerSkills> {
 
     @CapabilityInject(IPlayerSkills.class)
     public static final Capability<IPlayerSkills> PLAYER_SKILLS_CAPABILITY = null;
+    public static final PlayerSkillsStorage storage = new PlayerSkillsStorage();
 
     @Override
     public NBTBase writeNBT(Capability<IPlayerSkills> capability, IPlayerSkills instance, EnumFacing side) {
@@ -23,12 +24,11 @@ public class PlayerSkillsStorage implements Capability.IStorage<IPlayerSkills> {
         nbt.setInteger("experience", instance.getExperience());
         nbt.setInteger("globalLevel", instance.getGlobalLevel());
         nbt.setInteger("points", instance.getPoints());
-
         nbt.setInteger("vitalityLevel", instance.getVitalityLevel());
         nbt.setInteger("sageLevel", instance.getSageLevel());
         nbt.setInteger("strenghtLevel", instance.getStrengthLevel());
         nbt.setInteger("intelligenceLevel", instance.getIntelligenceLevel());
-        nbt.setInteger("luckLevel", instance.getLuckLevel());
+       nbt.setInteger("luckLevel", instance.getLuckLevel());
         nbt.setInteger("airLevel", instance.getAirLevel());
         return nbt;
     }
@@ -37,7 +37,6 @@ public class PlayerSkillsStorage implements Capability.IStorage<IPlayerSkills> {
     public void readNBT(Capability<IPlayerSkills> capability, IPlayerSkills instance, EnumFacing side, NBTBase base) {
         if (base instanceof NBTTagCompound) {
             NBTTagCompound nbt = (NBTTagCompound) base;
-
             instance.setExperience(nbt.getInteger("experience"));
             instance.setGlobalLevel(nbt.getInteger("globalLevel"));
             instance.setPoints(nbt.getInteger("points"));
@@ -47,8 +46,7 @@ public class PlayerSkillsStorage implements Capability.IStorage<IPlayerSkills> {
             instance.setStrengthLevel(nbt.getInteger("strenghtLevel"));
             instance.setIntelligenceLevel(nbt.getInteger("intelligenceLevel"));
             instance.setLuckLevel(nbt.getInteger("luckLevel"));
-            instance.setExperience(nbt.getInteger("airLevel"));
+            instance.setAirLevel(nbt.getInteger("airLevel"));
         }
     }
-
 }

@@ -6,6 +6,8 @@ package fr.skah.capacitymod.capability;
  *  * @Author Jimmy
  */
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public interface IPlayerSkills {
 
     int getExperience();
@@ -35,4 +37,6 @@ public interface IPlayerSkills {
     int getAirLevel();
     void setAirLevel(int level);
 
+    NBTTagCompound saveNBT();
+    void loadNBT(NBTTagCompound compound);
 }

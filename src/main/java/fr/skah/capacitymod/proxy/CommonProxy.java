@@ -11,6 +11,7 @@ import fr.skah.capacitymod.capability.DefaultPlayerSkills;
 import fr.skah.capacitymod.capability.IPlayerSkills;
 import fr.skah.capacitymod.capability.PlayerSkillsStorage;
 import fr.skah.capacitymod.listeners.AttachCapabilityListener;
+import fr.skah.capacitymod.listeners.BlockListener;
 import fr.skah.capacitymod.listeners.KillEntityListener;
 import fr.skah.capacitymod.network.LevelUpPacket;
 import fr.skah.capacitymod.network.RequestSynchronisePacket;
@@ -36,6 +37,7 @@ public class CommonProxy {
     public void registerListeners() {
         MinecraftForge.EVENT_BUS.register(new AttachCapabilityListener());
         MinecraftForge.EVENT_BUS.register(new KillEntityListener());
+        MinecraftForge.EVENT_BUS.register(new BlockListener());
     }
 
     public void clientSide(Side side) {
