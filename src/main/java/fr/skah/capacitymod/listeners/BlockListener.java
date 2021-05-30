@@ -39,7 +39,7 @@ public class BlockListener {
         BlockPos pos = event.getPos();
         IBlockState blockState = event.getWorld().getBlockState(pos);
         Block block = blockState.getBlock();
-        block.dropBlockAsItemWithChance(event.getWorld(), pos, blockState, 100, playerSkills.getLuckLevel());
+        block.dropBlockAsItemWithChance(event.getWorld(), pos, blockState, 100, playerSkills.getLuckLevel() + 1);
     }
 
 

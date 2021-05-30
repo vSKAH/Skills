@@ -93,7 +93,7 @@ public class KillEntityListener {
         IPlayerSkills playerSkills = player.getCapability(PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY, null);
         event.getDrops().forEach(item -> {
             ItemStack stack = item.getItem();
-            stack.setCount(item.getItem().getCount() * playerSkills.getLuckLevel());
+            stack.setCount(item.getItem().getCount() * playerSkills.getLuckLevel() + 1);
             item.setItem(stack);
         });
     }
