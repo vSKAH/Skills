@@ -75,7 +75,7 @@ public class KillEntityListener {
             int experienceGain = addedExperience + (playerSkills.getSageLevel() * 4) + (playerSkills.getGlobalLevel() * 2 - 2);
             updatePlayerExperience(player, playerSkills, playerSkills.getExperience() + experienceGain);
             if (!player.world.isRemote) {
-                OverlayListeners.EXP_UP = 1200;
+                OverlayListeners.EXP_UP = 500;
                 OverlayListeners.EXP = experienceGain;
             }
         }
