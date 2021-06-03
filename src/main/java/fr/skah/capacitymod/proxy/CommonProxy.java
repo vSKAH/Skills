@@ -10,7 +10,7 @@ import fr.skah.capacitymod.CapacityMod;
 import fr.skah.capacitymod.capability.DefaultPlayerSkills;
 import fr.skah.capacitymod.capability.IPlayerSkills;
 import fr.skah.capacitymod.capability.PlayerSkillsStorage;
-import fr.skah.capacitymod.listeners.AttachCapabilityListener;
+import fr.skah.capacitymod.listeners.CapabilityListener;
 import fr.skah.capacitymod.listeners.BlockListener;
 import fr.skah.capacitymod.listeners.KillEntityListener;
 import fr.skah.capacitymod.network.LevelUpPacket;
@@ -35,7 +35,7 @@ public class CommonProxy {
     }
 
     public void registerListeners() {
-        MinecraftForge.EVENT_BUS.register(new AttachCapabilityListener());
+        MinecraftForge.EVENT_BUS.register(new CapabilityListener());
         MinecraftForge.EVENT_BUS.register(new KillEntityListener());
         MinecraftForge.EVENT_BUS.register(new BlockListener());
     }

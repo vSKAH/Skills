@@ -12,10 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemPickaxe;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.world.BlockEvent;
@@ -39,8 +36,6 @@ public class BlockListener {
         BlockPos pos = event.getPos();
         IBlockState blockState = event.getWorld().getBlockState(pos);
         Block block = blockState.getBlock();
-        block.dropBlockAsItemWithChance(event.getWorld(), pos, blockState, 100, playerSkills.getLuckLevel() + 1);
+        block.dropBlockAsItemWithChance(event.getWorld(), pos, blockState, 20, playerSkills.getLuckLevel());
     }
-
-
 }

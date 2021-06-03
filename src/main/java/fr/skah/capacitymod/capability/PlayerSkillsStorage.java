@@ -16,7 +16,6 @@ public class PlayerSkillsStorage implements Capability.IStorage<IPlayerSkills> {
 
     @CapabilityInject(IPlayerSkills.class)
     public static final Capability<IPlayerSkills> PLAYER_SKILLS_CAPABILITY = null;
-    public static final PlayerSkillsStorage storage = new PlayerSkillsStorage();
 
     @Override
     public NBTBase writeNBT(Capability<IPlayerSkills> capability, IPlayerSkills instance, EnumFacing side) {
@@ -28,7 +27,7 @@ public class PlayerSkillsStorage implements Capability.IStorage<IPlayerSkills> {
         nbt.setInteger("sageLevel", instance.getSageLevel());
         nbt.setInteger("strenghtLevel", instance.getStrengthLevel());
         nbt.setInteger("intelligenceLevel", instance.getIntelligenceLevel());
-       nbt.setInteger("luckLevel", instance.getLuckLevel());
+        nbt.setInteger("luckLevel", instance.getLuckLevel());
         nbt.setInteger("airLevel", instance.getAirLevel());
         return nbt;
     }

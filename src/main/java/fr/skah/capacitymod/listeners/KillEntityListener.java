@@ -13,8 +13,11 @@ import fr.skah.capacitymod.network.LevelUpPacket;
 import fr.skah.capacitymod.utils.Level;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -23,6 +26,8 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.Random;
+
 public class KillEntityListener {
 
 
@@ -30,7 +35,7 @@ public class KillEntityListener {
     public void onPlayerKillMob(LivingDeathEvent event) {
 
         if (!(event.getSource().getTrueSource() instanceof EntityPlayer)) return;
-        if (event.getEntity() instanceof EntityAnimal || event.getEntity() instanceof EntityMob) {
+        if (event.getEntity() instanceof EntityLiving) {
             EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
             int addedExperience = 0;
             switch (event.getEntity().getName()) {
@@ -62,20 +67,20 @@ public class KillEntityListener {
                     addedExperience = 40;
                     break;
                 case "Wither":
-                    addedExperience = 100;
-                    break;
-                case "Ender Dragon":
-                    addedExperience = 120;
+                    addedExperience = 150;
                     break;
                 default:
                     System.out.println("Le mob " + event.getEntity().getName() + " n'exite pas !");
                     break;
             }
+
+            if (event.getEntity() instanceof EntityDragon) addedExperience = 200;
+
             IPlayerSkills playerSkills = player.getCapability(PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY, null);
             int experienceGain = addedExperience + (playerSkills.getSageLevel() * 4) + (playerSkills.getGlobalLevel() * 2 - 2);
             updatePlayerExperience(player, playerSkills, playerSkills.getExperience() + experienceGain);
             if (!player.world.isRemote) {
-                OverlayListeners.EXP_UP = 500;
+                OverlayListeners.EXP_UP = 300;
                 OverlayListeners.EXP = experienceGain;
             }
         }
@@ -90,12 +95,14 @@ public class KillEntityListener {
         if (EnchantmentHelper.getEnchantments(player.getHeldItem(EnumHand.MAIN_HAND)).containsKey(Enchantment.getEnchantmentByID(21)))
             return;
 
-        IPlayerSkills playerSkills = player.getCapability(PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY, null);
-        event.getDrops().forEach(item -> {
-            ItemStack stack = item.getItem();
-            stack.setCount(item.getItem().getCount() * playerSkills.getLuckLevel() + 1);
-            item.setItem(stack);
-        });
+        if (new Random().nextInt(100) <= 20) {
+            IPlayerSkills playerSkills = player.getCapability(PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY, null);
+            event.getDrops().forEach(item -> {
+                ItemStack stack = item.getItem();
+                stack.setCount(item.getItem().getCount() * playerSkills.getLuckLevel() + 1);
+                item.setItem(stack);
+            });
+        }
     }
 
 

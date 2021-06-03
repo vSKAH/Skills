@@ -13,7 +13,8 @@ import net.minecraft.util.ResourceLocation;
  */
 
 public abstract class BaseGui extends GuiScreen {
-
+    private int saveStep;
+    private int visibleTime;
     private final int widthSize;
     private final int heightSize;
 
@@ -34,6 +35,7 @@ public abstract class BaseGui extends GuiScreen {
      */
     @Override
     public void initGui() {
+        this.saveStep = 0;
         x = (this.width + this.widthSize) / 2;
         y = (this.height + this.heightSize) / 2;
 
@@ -58,6 +60,11 @@ public abstract class BaseGui extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
+    public void updateScreen() {
+        super.updateScreen();
+        ++this.visibleTime;
+    }
+
     /**
      * Close current player opened gui
      */
@@ -71,7 +78,7 @@ public abstract class BaseGui extends GuiScreen {
      */
     public void drawBackground(int x, int y) {
         Minecraft.getMinecraft().getTextureManager().bindTexture(backgroundResourceLocation);
-        Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, getWidthSize(), getHeightSize() , getWidthSize(), getHeightSize());
+        Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, getWidthSize(), getHeightSize(), getWidthSize(), getHeightSize());
     }
 
     public int getWidthSize() {

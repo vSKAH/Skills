@@ -6,8 +6,6 @@ package fr.skah.capacitymod.capability;
  *  * @Author Jimmy
  */
 
-import net.minecraft.nbt.NBTTagCompound;
-
 public class DefaultPlayerSkills implements IPlayerSkills {
 
     protected int experience;
@@ -126,14 +124,21 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     }
 
     @Override
-    public NBTTagCompound saveNBT()
-    {
-        return (NBTTagCompound) PlayerSkillsStorage.storage.writeNBT(PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY, this, null);
+    public IPlayerSkills get() {
+        return this;
     }
 
     @Override
-    public void loadNBT(NBTTagCompound compound)
-    {
-        PlayerSkillsStorage.storage.readNBT(PlayerSkillsStorage.PLAYER_SKILLS_CAPABILITY, this, null, compound);
+    public void set(IPlayerSkills skills) {
+        setExperience(skills.getExperience());
+        setGlobalLevel(skills.getGlobalLevel());
+        setPoints(skills.getPoints());
+
+        setVitalityLevel(skills.getVitalityLevel());
+        setSageLevel(skills.getSageLevel());
+        setStrengthLevel(skills.getStrengthLevel());
+        setIntelligenceLevel(skills.getIntelligenceLevel());
+        setLuckLevel(skills.getLuckLevel());
+        setAirLevel(skills.getAirLevel());
     }
 }

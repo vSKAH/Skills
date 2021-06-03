@@ -67,8 +67,7 @@ public class RequestUpgrade implements IMessage {
             if (playerSkills.getPoints() >= pointNeeded) {
                 playerSkills.setPoints(playerSkills.getPoints() - 1);
                 if (skill == Skills.VITALITY) {
-                    IAttributeInstance instance = entityPlayer.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH);
-                    instance.applyModifier(new AttributeModifier(UUID.randomUUID(), "Health Modifier", 0.1F, 2).setSaved(true));
+                    entityPlayer.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier(UUID.randomUUID(), "Health Modifier", 0.1F, 2).setSaved(true));
                     playerSkills.setVitalityLevel(playerSkills.getVitalityLevel() + 1);
                     playerSkills.setPoints(playerSkills.getPoints() -2);
                     return null;
@@ -80,23 +79,21 @@ public class RequestUpgrade implements IMessage {
                 }
 
                 if (skill == Skills.STRENGHT) {
-                    IAttributeInstance instance = entityPlayer.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-                    instance.applyModifier(new AttributeModifier(UUID.randomUUID(), "Streght Modifier", 0.2F, 2).setSaved(true));
+                    entityPlayer.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).applyModifier(new AttributeModifier(UUID.randomUUID(), "Streght Modifier", 0.2F, 2).setSaved(true));
                     playerSkills.setStrengthLevel(playerSkills.getStrengthLevel() + 1);
                     playerSkills.setPoints(playerSkills.getPoints() - 2);
                     return null;
                 }
 
                 if (skill == Skills.INTELLIGENCE) {
-                    IAttributeInstance instance = entityPlayer.getEntityAttribute(SharedMonsterAttributes.ARMOR);
-                    instance.applyModifier(new AttributeModifier(UUID.randomUUID(), "Resistance Modifier", 0.1F, 2).setSaved(true));
+                    entityPlayer.getEntityAttribute(SharedMonsterAttributes.ARMOR).applyModifier(new AttributeModifier(UUID.randomUUID(), "Resistance Modifier", 0.1F, 2).setSaved(true));
                     playerSkills.setIntelligenceLevel(playerSkills.getIntelligenceLevel() + 1);
                     return null;
                 }
 
                 if (skill == Skills.AIR) {
-                    IAttributeInstance instance = entityPlayer.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-                    instance.applyModifier(new AttributeModifier(UUID.randomUUID(), "Speed Modifier", 0.2F, 2).setSaved(true));
+                    entityPlayer.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).applyModifier(new AttributeModifier(UUID.randomUUID(), "Speed Modifier", 0.2F, 2).setSaved(true));
+                    entityPlayer.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).applyModifier(new AttributeModifier(UUID.randomUUID(), "Attack Speed Modifier", 0.2F, 2).setSaved(true));
                     playerSkills.setAirLevel(playerSkills.getAirLevel() + 1);
                     return null;
                 }

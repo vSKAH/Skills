@@ -33,7 +33,7 @@ public class OverlayListeners {
     public void onRenderOverlay(RenderGameOverlayEvent.Post event) {
         if (LEVEL_UP > 0 || EXP_UP > 0) {
             Minecraft minecraft = FMLClientHandler.instance().getClient();
-            if (minecraft.currentScreen == null && event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
+            if (minecraft.currentScreen == null && event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE) {
                 ScaledResolution scaledresolution = event.getResolution();
 
                 int sizeX = 378 / scaledresolution.getScaleFactor();
